@@ -1,0 +1,66 @@
+sm:
+    PasswordScreen:
+    ErrorScreen:
+    KeyScreen:
+
+<PasswordScreen>:
+    name: "password"
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Enter App Password:"
+            TextInput:
+                password: True
+                id: passw
+                multiline: False
+        Button:
+            text: "Submit"
+            on_release:
+                app.root.current = "key" if passw.text == "#Enter_Your_Password" else "error"
+                passw.text = ""
+<ErrorScreen>:
+    name: "error"
+    Button:
+        text: "retry"
+        on_release:
+            app.root.current = "password"
+<KeyScreen>:
+    name: "key"
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Enter Key1:"
+            TextInput:
+                id: pas
+                multiline: False
+            Label:
+                text: "Enter Key2:"
+            TextInput:
+                id: pa
+                multiline: False
+        Button:
+            text: "Submit"
+            on_release:
+                #app.root.current = "result"
+                p.text = app.gen(pas.text,pa.text)
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Password is:"
+            TextInput:
+                id: p
+                multiline: False
+        Button:
+            text: "Clear"
+            on_release:
+                pas.text = ""
+                pa.text = ""
+                p.text = ""
+        Button:
+            text: "Exit"
+            on_release:
+                app.stop()
