@@ -2,6 +2,7 @@ sm:
     PasswordScreen:
     ErrorScreen:
     KeyScreen:
+    FileScreen:
 
 <PasswordScreen>:
     name: "password"
@@ -18,14 +19,55 @@ sm:
         Button:
             text: "Submit"
             on_release:
-                app.root.current = "key" if passw.text == "#Enter_Your_Password" else "error"
+                app.root.current = "key" if passw.text == "1234" else "error"
                 passw.text = ""
+        Button:
+            text: "Password File"
+            on_release:
+                app.root.current = "file"
 <ErrorScreen>:
     name: "error"
     Button:
         text: "retry"
         on_release:
             app.root.current = "password"
+<FileScreen>:
+    name: "file"
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 4
+            TextInput:
+                id: Website
+                multiline: True
+            TextInput:
+                id: Email
+                multiline: True
+            TextInput:
+                id: key_1
+                multiline: True
+            TextInput:
+                id: key_2
+                multiline: True
+        Button:
+            text: "Update Data"
+            on_release:
+                app.webfil(Website.text)
+                app.emailfil(Email.text)
+                app.key1fil(key_1.text)
+                app.key2fil(key_2.text)
+        Button:
+            text: "Show"
+            on_release:
+                Website.text = app.websav()
+                Email.text = app.emailsav()
+                key_1.text = app.key1sav()
+                key_2.text = app.key2sav()
+        Button:
+            text: "Go Back"
+            on_release:
+                app.root.current = "password"
+
 <KeyScreen>:
     name: "key"
     GridLayout:
